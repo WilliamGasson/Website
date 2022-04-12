@@ -1,0 +1,445 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta content="en-us" http-equiv="Content-Language">
+        <meta charset="utf-8">
+
+        <title>testing page</title>
+    </head>
+
+
+
+    <body>
+        
+        <form method="POST">
+            Asset Tag:<br>
+            <input type="text" name="tag"><br>
+            <input type="submit" value="Submit">
+        </form>
+  
+
+
+        <!--move to click-->
+        <style type="text/css">
+            body {
+                background-color: #FFF;
+                margin: 30px;
+                margin-top: 10px;
+            }
+            #contentContainer {
+                width: 800px;
+                height: 800px;
+                border: 5px black solid;
+                overflow: hidden;
+                background-color: #F2F2F2;
+                cursor: pointer;
+                background-image: linear-gradient(45deg, #808080 25%, transparent 25%), linear-gradient(-45deg, #808080 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #808080 75%), linear-gradient(-45deg, transparent 75%, #808080 75%);
+                background-size: 200px 200px;
+                background-position: 0 0, 0 100px, 100px -100px, -100px 0px;
+            }
+            #thing {
+                position: relative;
+                left: 50px;
+                top: 50px;
+                transition: left .5s cubic-bezier(.42,-0.3,.78,1.25), 
+                            top .5s cubic-bezier(.42,-0.3,.78,1.25);
+            }
+        </style>
+        
+        <div id="contentContainer">
+            <img src="static\img\pieces\bK.png" id="thing" alt="black king" height="67" width="67">
+        </div>
+
+        <script src="//www.kirupa.com/html5/examples/js/prefixfree.min.js"></script>
+        <script>
+            var theThing = document.querySelector("#thing");
+            var container = document.querySelector("#contentContainer");
+
+            container.addEventListener("click", getClickPosition, false);
+
+            function getClickPosition(e) {
+                var parentPosition = getPosition(e.currentTarget);
+                var xPosition = e.clientX - parentPosition.x - (theThing.clientWidth / 2);
+                var yPosition = e.clientY - parentPosition.y - (theThing.clientHeight / 2);
+                
+                theThing.style.left = xPosition + "px";
+                theThing.style.top = yPosition + "px";
+            }
+
+            // Helper function to get an element's exact position
+            function getPosition(el) {
+            var xPos = 0;
+            var yPos = 0;
+
+            while (el) {
+                if (el.tagName == "BODY") {
+                // deal with browser quirks with body/window/document and page scroll
+                var xScroll = el.scrollLeft || document.documentElement.scrollLeft;
+                var yScroll = el.scrollTop || document.documentElement.scrollTop;
+
+                xPos += (el.offsetLeft - xScroll + el.clientLeft);
+                yPos += (el.offsetTop - yScroll + el.clientTop);
+                } else {
+                // for all other non-BODY elements
+                xPos += (el.offsetLeft - el.scrollLeft + el.clientLeft);
+                yPos += (el.offsetTop - el.scrollTop + el.clientTop);
+                }
+
+                el = el.offsetParent;
+            }
+            return {
+                x: xPos,
+                y: yPos
+            };
+            }
+        </script>
+
+
+        <!--dragable element-->
+        <style>
+            #mydiv {
+            position: absolute;
+            z-index: 9;
+            text-align: center;
+            }
+            #mydiv1 {
+            position: absolute;
+            z-index: 9;
+            text-align: center;
+            }
+            #mydiv2 {
+            position: absolute;
+            z-index: 9;
+            text-align: center;
+            }
+            
+        </style>
+        
+        <div class = "container">
+            <h1>Draggable DIV Element</h1>
+            <p>Click and hold the mouse button down while moving the DIV element</p>
+            <div id="mydiv1">
+                <img src="static\img\pieces\bK.png" id="bK" alt="black king" height="67" width="67">
+            </div>
+            <p>
+                 space
+            </p>
+            <div id="mydiv">
+                <img src="static\img\pieces\bQ.png" id="bQ" alt="black queen" height="67" width="67">
+            </div>
+        </div>
+
+
+
+        <script>
+            //Make the DIV element draggagle:
+            dragElement(document.getElementById("mydiv"));
+            
+            function dragElement(elmnt) {
+                var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+                if (document.getElementById(elmnt.id + "header")) {
+                    /* if present, the header is where you move the DIV from:*/
+                    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+                } 
+                else {
+                    /* otherwise, move the DIV from anywhere inside the DIV:*/
+                    elmnt.onmousedown = dragMouseDown;
+                }
+                
+                function dragMouseDown(e) {
+                    e = e || window.event;
+                    e.preventDefault();
+                    // get the mouse cursor position at startup:
+                    pos3 = e.clientX;
+                    pos4 = e.clientY;
+                    document.onmouseup = closeDragElement;
+                    // call a function whenever the cursor moves:
+                    document.onmousemove = elementDrag;
+                }
+                
+                function elementDrag(e) {
+                    e = e || window.event;
+                    e.preventDefault();
+                    // calculate the new cursor position:
+                    pos1 = pos3 - e.clientX;
+                    pos2 = pos4 - e.clientY;
+                    pos3 = e.clientX;
+                    pos4 = e.clientY;
+                    // set the element's new position:
+                    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+                }
+                
+                function closeDragElement() {
+                    /* stop moving when mouse button is released:*/
+                    document.onmouseup = null;
+                    document.onmousemove = null;
+                }
+            }
+        </script>
+                
+                <script>
+                    //Make the DIV element draggagle:
+                    dragElement(document.getElementById("mydiv1"));
+                    
+                    function dragElement(elmnt) {
+                        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+                        if (document.getElementById(elmnt.id + "header")) {
+                            /* if present, the header is where you move the DIV from:*/
+                            document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+                        } 
+                        else {
+                            /* otherwise, move the DIV from anywhere inside the DIV:*/
+                            elmnt.onmousedown = dragMouseDown;
+                        }
+                        
+                        function dragMouseDown(e) {
+                            e = e || window.event;
+                            e.preventDefault();
+                            // get the mouse cursor position at startup:
+                            pos3 = e.clientX;
+                            pos4 = e.clientY;
+                            document.onmouseup = closeDragElement;
+                            // call a function whenever the cursor moves:
+                            document.onmousemove = elementDrag;
+                        }
+                        
+                        function elementDrag(e) {
+                            e = e || window.event;
+                            e.preventDefault();
+                            // calculate the new cursor position:
+                            pos1 = pos3 - e.clientX;
+                            pos2 = pos4 - e.clientY;
+                            pos3 = e.clientX;
+                            pos4 = e.clientY;
+                            // set the element's new position:
+                            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+                        }
+                        
+                        function closeDragElement() {
+                            /* stop moving when mouse button is released:*/
+                            document.onmouseup = null;
+                            document.onmousemove = null;
+                        }
+                    }
+                </script>
+                        
+        
+        
+
+
+
+
+
+        <img class="img w-50" src="static\img\Chess_board.png" alt="Chess Board" usemap="#chessmap">
+    
+            <map name="chessmap">
+                <area shape="rect" coords="29,29, 107,107" alt="A8" href="/img_rec">
+                <area shape="rect" coords="29,108,107,186" alt="A7" href="/">
+                <area shape="rect" coords="29,187,107,265" alt="A6" href="/img_rec">
+                <area shape="rect" coords="29,266,107,344" alt="A5" href="/">
+                <area shape="rect" coords="29,345,107,423" alt="A4" href="/img_rec">
+                <area shape="rect" coords="29,424,107,502" alt="A3" href="/">
+                <area shape="rect" coords="29,503,107,581" alt="A2" href="/img_rec">
+                <area shape="rect" coords="29,582,107,660" alt="A1" href="/">    
+        
+                <area shape="rect" coords="108,29, 186,107" alt="B8" href="/lensless">
+                <area shape="rect" coords="108,108,186,186" alt="B7" href="/about">
+                <area shape="rect" coords="108,187,186,265" alt="B6" href="/lensless">
+                <area shape="rect" coords="108,266,186,344" alt="B5" href="/about">        
+                <area shape="rect" coords="108,345,186,423" alt="B4" href="/lensless">
+                <area shape="rect" coords="108,424,186,502" alt="B3" href="/about">        
+                <area shape="rect" coords="108,503,186,581" alt="B2" href="/lensless">
+                <area shape="rect" coords="108,582,186,660" alt="B1" href="/about">  
+            </map>
+        </div>
+  
+        <form method="post" action="/">
+            <input type="submit" value="VALUE1" name="action1"/>
+            <input type="submit" value="VALUE2" name="action2" />
+        </form>
+
+
+        <!--table layout-->
+
+        <table style="text-align:center;border-spacing:0pt;font-family:'Arial Unicode MS'; border-collapse:collapse; border-color: black; border-style: solid; border-width: 0pt 0pt 0pt 0pt">
+            <tbody><tr>
+            <td style="width:12pt">8
+            </td>
+            <td style="width:50pt; height:50pt; border-collapse:collapse; border-color: black; border-style: solid; border-width: 1pt 0pt 0pt 1pt"><span style="font-size:400%;">♜</span>
+            </td>
+            <td style="width:50pt; height:50pt; border-collapse:collapse; border-color: black; border-style: solid; border-width: 1pt 0pt 0pt 0pt" bgcolor="lightgrey"><span style="font-size:400%;">♞</span>
+            </td>
+            <td style="width:50pt; height:50pt; border-collapse:collapse; border-color: black; border-style: solid; border-width: 1pt 0pt 0pt 0pt"><span style="font-size:400%;">♝</span>
+            </td>
+            <td style="width:50pt; height:50pt; border-collapse:collapse; border-color: black; border-style: solid; border-width: 1pt 0pt 0pt 0pt" bgcolor="lightgrey"><span style="font-size:400%;">♛</span>
+            </td>
+            <td style="width:50pt; height:50pt; border-collapse:collapse; border-color: black; border-style: solid; border-width: 1pt 0pt 0pt 0pt"><span style="font-size:400%;">♚</span>
+            </td>
+            <td style="width:50pt; height:50pt; border-collapse:collapse; border-color: black; border-style: solid; border-width: 1pt 0pt 0pt 0pt" bgcolor="lightgrey"><span style="font-size:400%;">♝</span>
+            </td>
+            <td style="width:50pt; height:50pt; border-collapse:collapse; border-color: black; border-style: solid; border-width: 1pt 0pt 0pt 0pt"><span style="font-size:400%;">♞</span>
+            </td>
+            <td style="width:50pt; height:50pt; border-collapse:collapse; border-color: black; border-style: solid; border-width: 1pt 1pt 0pt 0pt" bgcolor="lightgrey"><span style="font-size:400%;">♜</span>
+            </td></tr>
+            <tr>
+            <td style="width:12pt">7
+            </td>
+            <td style="width:50pt; height:50pt; border-collapse:collapse; border-color: black; border-style: solid; border-width: 0pt 0pt 0pt 1pt" bgcolor="lightgrey"><span style="font-size:400%;">♟</span>
+            </td>
+            <td style="width:50pt; height:50pt;"><span style="font-size:400%;">♟</span>
+            </td>
+            <td style="width:50pt; height:50pt;" bgcolor="lightgrey"><span style="font-size:400%;">♟</span>
+            </td>
+            <td style="width:50pt; height:50pt;"><span style="font-size:400%;">♟</span>
+            </td>
+            <td style="width:50pt; height:50pt;" bgcolor="lightgrey"><span style="font-size:400%;">♟</span>
+            </td>
+            <td style="width:50pt; height:50pt;"><span style="font-size:400%;">♟</span>
+            </td>
+            <td style="width:50pt; height:50pt;" bgcolor="lightgrey"><span style="font-size:400%;">♟</span>
+            </td>
+            <td style="width:50pt; height:50pt; border-collapse:collapse; border-color: black; border-style: solid; border-width: 0pt 1pt 0pt 0pt"><span style="font-size:400%;">♟</span>
+            </td></tr>
+            <tr>
+            <td style="width:12pt">6
+            </td>
+            <td style="width:50pt; height:50pt; border-collapse:collapse; border-color: black; border-style: solid; border-width: 0pt 0pt 0pt 1pt"><span style="font-size:400%;"><br></span>
+            </td>
+            <td style="width:50pt; height:50pt;" bgcolor="lightgrey">
+            </td>
+            <td style="width:50pt; height:50pt;">
+            </td>
+            <td style="width:50pt; height:50pt;" bgcolor="lightgrey">
+            </td>
+            <td style="width:50pt; height:50pt;">
+            </td>
+            <td style="width:50pt; height:50pt;" bgcolor="lightgrey">
+            </td>
+            <td style="width:50pt; height:50pt;">
+            </td>
+            <td style="width:50pt; height:50pt; border-collapse:collapse; border-color: black; border-style: solid; border-width: 0pt 1pt 0pt 0pt" bgcolor="lightgrey">
+            </td></tr>
+            <tr>
+            <td style="width:12pt">5
+            </td>
+            <td style="width:50pt; height:50pt; border-collapse:collapse; border-color: black; border-style: solid; border-width: 0pt 0pt 0pt 1pt" bgcolor="lightgrey"><span style="font-size:400%;"><br></span>
+            </td>
+            <td style="width:50pt; height:50pt;">
+            </td>
+            <td style="width:50pt; height:50pt;" bgcolor="lightgrey">
+            </td>
+            <td style="width:50pt; height:50pt;">
+            </td>
+            <td style="width:50pt; height:50pt;" bgcolor="lightgrey">
+            </td>
+            <td style="width:50pt; height:50pt;">
+            </td>
+            <td style="width:50pt; height:50pt;" bgcolor="lightgrey">
+            </td>
+            <td style="width:50pt; height:50pt; border-collapse:collapse; border-color: black; border-style: solid; border-width: 0pt 1pt 0pt 0pt">
+            </td></tr>
+            <tr>
+            <td style="width:12pt">4
+            </td>
+            <td style="width:50pt; height:50pt; border-collapse:collapse; border-color: black; border-style: solid; border-width: 0pt 0pt 0pt 1pt"><span style="font-size:400%;"><br></span>
+            </td>
+            <td style="width:50pt; height:50pt;" bgcolor="lightgrey">
+            </td>
+            <td style="width:50pt; height:50pt;">
+            </td>
+            <td style="width:50pt; height:50pt;" bgcolor="lightgrey">
+            </td>
+            <td style="width:50pt; height:50pt;">
+            </td>
+            <td style="width:50pt; height:50pt;" bgcolor="lightgrey">
+            </td>
+            <td style="width:50pt; height:50pt;">
+            </td>
+            <td style="width:50pt; height:50pt; border-collapse:collapse; border-color: black; border-style: solid; border-width: 0pt 1pt 0pt 0pt" bgcolor="lightgrey">
+            </td></tr>
+            <tr>
+            <td style="width:12pt">3
+            </td>
+            <td style="width:50pt; height:50pt; border-collapse:collapse; border-color: black; border-style: solid; border-width: 0pt 0pt 0pt 1pt" bgcolor="lightgrey"><span style="font-size:400%;"><br></span>
+            </td>
+            <td style="width:50pt; height:50pt;">
+            </td>
+            <td style="width:50pt; height:50pt;" bgcolor="lightgrey">
+            </td>
+            <td style="width:50pt; height:50pt;">
+            </td>
+            <td style="width:50pt; height:50pt;" bgcolor="lightgrey">
+            </td>
+            <td style="width:50pt; height:50pt;">
+            </td>
+            <td style="width:50pt; height:50pt;" bgcolor="lightgrey">
+            </td>
+            <td style="width:50pt; height:50pt; border-collapse:collapse; border-color: black; border-style: solid; border-width: 0pt 1pt 0pt 0pt">
+            </td></tr>
+            <tr>
+            <td style="width:12pt">2
+            </td>
+            <td style="width:50pt; height:50pt; border-collapse:collapse; border-color: black; border-style: solid; border-width: 0pt 0pt 0pt 1pt"><span style="font-size:400%;">♙</span>
+            </td>
+            <td style="width:50pt; height:50pt;" bgcolor="lightgrey"><span style="font-size:400%;">♙</span>
+            </td>
+            <td style="width:50pt; height:50pt;"><span style="font-size:400%;">♙</span>
+            </td>
+            <td style="width:50pt; height:50pt;" bgcolor="lightgrey"><span style="font-size:400%;">♙</span>
+            </td>
+            <td style="width:50pt; height:50pt;"><span style="font-size:400%;">♙</span>
+            </td>
+            <td style="width:50pt; height:50pt;" bgcolor="lightgrey"><span style="font-size:400%;">♙</span>
+            </td>
+            <td style="width:50pt; height:50pt;"><span style="font-size:400%;">♙</span>
+            </td>
+            <td style="width:50pt; height:50pt; border-collapse:collapse; border-color: black; border-style: solid; border-width: 0pt 1pt 0pt 0pt" bgcolor="lightgrey"><span style="font-size:400%;">♙</span>
+            </td></tr>
+            <tr>
+            <td style="width:12pt">1
+            </td>
+            <td style="width:50pt; height:50pt; border-collapse:collapse; border-color: black; border-style: solid; border-width: 0pt 0pt 1pt 1pt" bgcolor="lightgrey"><span style="font-size:400%;">♖</span>
+            </td>
+            <td style="width:50pt; height:50pt; border-collapse:collapse; border-color: black; border-style: solid; border-width: 0pt 0pt 1pt 0pt"><span style="font-size:400%;">♘</span>
+            </td>
+            <td style="width:50pt; height:50pt; border-collapse:collapse; border-color: black; border-style: solid; border-width: 0pt 0pt 1pt 0pt" bgcolor="lightgrey"><span style="font-size:400%;">♗</span>
+            </td>
+            <td style="width:50pt; height:50pt; border-collapse:collapse; border-color: black; border-style: solid; border-width: 0pt 0pt 1pt 0pt"><span style="font-size:400%;">♕</span>
+            </td>
+            <td style="width:50pt; height:50pt; border-collapse:collapse; border-color: black; border-style: solid; border-width: 0pt 0pt 1pt 0pt" bgcolor="lightgrey"><span style="font-size:400%;">♔</span>
+            </td>
+            <td style="width:50pt; height:50pt; border-collapse:collapse; border-color: black; border-style: solid; border-width: 0pt 0pt 1pt 0pt"><span style="font-size:400%;">♗</span>
+            </td>
+            <td style="width:50pt; height:50pt; border-collapse:collapse; border-color: black; border-style: solid; border-width: 0pt 0pt 1pt 0pt" bgcolor="lightgrey"><span style="font-size:400%;">♘</span>
+            </td>
+            <td style="width:50pt; height:50pt; border-collapse:collapse; border-color: black; border-style: solid; border-width: 0pt 1pt 1pt 0pt"><span style="font-size:400%;">♖</span>
+            </td></tr>
+            <tr>
+            <td>
+            </td>
+            <td>a
+            </td>
+            <td>b
+            </td>
+            <td>c
+            </td>
+            <td>d
+            </td>
+            <td>e
+            </td>
+            <td>f
+            </td>
+            <td>g
+            </td>
+            <td>h
+            </td>
+        </tr>
+        </tbody>
+        </table>
+
+
+    </body>
+</html>

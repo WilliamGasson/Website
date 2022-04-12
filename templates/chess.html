@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+  <head>
+    <meta charset="utf-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/css/chess.css">
+    
+    <title>Chess</title>
+  </head>
+
+  <body>
+    {% extends 'template.html' %}
+
+    {%block content%}
+
+    <div class="container">
+      <h1> Chess </h1>
+      <p> On this page you can play a chess computer.</p>
+      
+      <p> 
+        row = <span id="row"></span> ,
+        col = <span id="col"></span>
+      </p>
+
+      <p> 
+        top = <span id="top"></span> ,
+        left = <span id="left"></span> ,
+        piece = <span id="piece"></span>
+
+      </p>
+
+    </div>
+    
+    <div class = "container"  id="chessBoard">
+      <img src="static\img\pieces\bR.png" id="bR1" alt="black rook1" height="80" width="80">
+      <img src="static\img\pieces\bN.png" id="bN1" alt="black knight1" height="80" width="80">
+      <img src="static\img\pieces\bB.png" id="bB1" alt="black bishop1" height="80" width="80">
+      <img src="static\img\pieces\bK.png" id="bK" alt="black king" height="80" width="80">
+      <img src="static\img\pieces\bQ.png" id="bQ" alt="black queen" height="80" width="80">
+      <img src="static\img\pieces\bB.png" id="bB2" alt="black bishop2" height="80" width="80">
+      <img src="static\img\pieces\bN.png" id="bN2" alt="black knight2" height="80" width="80">
+      <img src="static\img\pieces\bR.png" id="bR2" alt="black rook2" height="80" width="80">
+
+      <img src="static\img\pieces\bP.png" id="bP1" alt="black Pawn1" height="80" width="80">
+      <img src="static\img\pieces\bP.png" id="bP2" alt="black Pawn2" height="80" width="80">
+      <img src="static\img\pieces\bP.png" id="bP3" alt="black Pawn3" height="80" width="80">
+      <img src="static\img\pieces\bP.png" id="bP4" alt="black Pawn4" height="80" width="80">
+      <img src="static\img\pieces\bP.png" id="bP5" alt="black Pawn5" height="80" width="80">
+      <img src="static\img\pieces\bP.png" id="bP6" alt="black Pawn6" height="80" width="80">
+      <img src="static\img\pieces\bP.png" id="bP7" alt="black Pawn7" height="80" width="80">
+      <img src="static\img\pieces\bP.png" id="bP8" alt="black Pawn8" height="80" width="80">
+
+      <img src="static\img\pieces\wR.png" id="wR1" alt="white rook1" height="80" width="80">
+      <img src="static\img\pieces\wN.png" id="wN1" alt="white knight1" height="80" width="80">
+      <img src="static\img\pieces\wB.png" id="wB1" alt="white bishop1" height="80" width="80">
+      <img src="static\img\pieces\wK.png" id="wK" alt="white king" height="80" width="80">
+      <img src="static\img\pieces\wQ.png" id="wQ" alt="white queen" height="80" width="80">
+      <img src="static\img\pieces\wB.png" id="wB2" alt="white bishop2" height="80" width="80">
+      <img src="static\img\pieces\wN.png" id="wN2" alt="white knight2" height="80" width="80">
+      <img src="static\img\pieces\wR.png" id="wR2" alt="white rook2" height="80" width="80">
+
+      <img src="static\img\pieces\wP.png" id="wP1" alt="white Pawn1" height="80" width="80">
+      <img src="static\img\pieces\wP.png" id="wP2" alt="white Pawn2" height="80" width="80">
+      <img src="static\img\pieces\wP.png" id="wP3" alt="white Pawn3" height="80" width="80">
+      <img src="static\img\pieces\wP.png" id="wP4" alt="white Pawn4" height="80" width="80">
+      <img src="static\img\pieces\wP.png" id="wP5" alt="white Pawn5" height="80" width="80">
+      <img src="static\img\pieces\wP.png" id="wP6" alt="white Pawn6" height="80" width="80">
+      <img src="static\img\pieces\wP.png" id="wP7" alt="white Pawn7" height="80" width="80">
+      <img src="static\img\pieces\wP.png" id="wP8" alt="white Pawn8" height="80" width="80">
+    </div>
+
+  
+    <script>
+      //Make the DIV element draggagle:
+      dragElement(document.getElementById("bQ"));
+      dragElement(document.getElementById("bK"));
+      dragElement(document.getElementById("bR1"));
+      dragElement(document.getElementById("bN1"));        
+      dragElement(document.getElementById("bB1"));
+      dragElement(document.getElementById("bR2"));
+      dragElement(document.getElementById("bN2"));        
+      dragElement(document.getElementById("bB2"));
+      dragElement(document.getElementById("bP1"));
+      dragElement(document.getElementById("bP2"));
+      dragElement(document.getElementById("bP3"));
+      dragElement(document.getElementById("bP4"));
+      dragElement(document.getElementById("bP5"));
+      dragElement(document.getElementById("bP6"));
+      dragElement(document.getElementById("bP7"));
+      dragElement(document.getElementById("bP8"));
+
+      dragElement(document.getElementById("wQ"));
+      dragElement(document.getElementById("wK"));
+      dragElement(document.getElementById("wR1"));
+      dragElement(document.getElementById("wN1"));        
+      dragElement(document.getElementById("wB1"));
+      dragElement(document.getElementById("wR2"));
+      dragElement(document.getElementById("wN2"));        
+      dragElement(document.getElementById("wB2"));
+      dragElement(document.getElementById("wP1"));
+      dragElement(document.getElementById("wP2"));
+      dragElement(document.getElementById("wP3"));
+      dragElement(document.getElementById("wP4"));
+      dragElement(document.getElementById("wP5"));
+      dragElement(document.getElementById("wP6"));
+      dragElement(document.getElementById("wP7"));
+      dragElement(document.getElementById("wP8"));
+
+
+      function dragElement(elmnt) {
+        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        var piece=0,  top =0, left=0,  col=0, row=0;
+        var myJSON = [];
+        if (document.getElementById(elmnt.id + "header")) {
+            /* if present, the header is where you move the DIV from:*/
+            document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+        } 
+        else {
+            /* otherwise, move the DIV from anywhere inside the DIV:*/
+
+            elmnt.onmousedown = dragMouseDown;
+
+        }
+          
+        function dragMouseDown(e) {
+          console.log(1)
+
+          e = e || window.event;
+          e.preventDefault();
+          // get the mouse cursor position at startup:
+          pos3 = e.clientX;
+          pos4 = e.clientY;
+
+          document.onmouseup = closeDragElement;
+
+          // call a function whenever the cursor moves:
+          document.onmousemove = elementDrag;
+          piece = elmnt.id;
+
+          pieceDetails()
+          console.log(myJSON)
+
+        }
+          
+        function elementDrag(e) {
+          e = e || window.event;
+          e.preventDefault();
+          // calculate the new cursor position:
+          pos1 = pos3 - e.clientX;
+          pos2 = pos4 - e.clientY;
+          pos3 = e.clientX;
+          pos4 = e.clientY;
+          // set the element's new position:
+          elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+          elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+
+        }
+
+        function pieceDetails(e) {
+
+          top = (elmnt.offsetTop - pos2)+40;
+          left = (elmnt.offsetLeft - pos1)+40;
+
+          if (left > 0 && left <= 100) {
+            row = "a";
+          } else if (left > 100 && left <= 200) {
+            row = "b";
+          } else if (left > 200 && left <= 300) {
+            row = "c";
+          } else if (left > 300 && left <= 400) {
+            row = "d";
+          } else if (left > 400 && left <= 500) {
+            row = "e";
+          } else if (left > 500 && left <= 600) {
+            row = "f";
+          } else if (left > 600 && left <= 700) {
+            row = "g";
+          } else if (left > 700 && left <= 800) {
+            row = "h";
+          }
+          
+          if (top > 0 && top < 100) {
+            col = "8";
+          } else if (top > 100 && top <= 200) {
+            col = "7";
+          } else if (top > 200 && top <= 300) {
+            col = "6";
+          } else if (top > 300 && top <= 400) {
+            col = "5";
+          } else if (top > 400 && top <= 500) {
+            col = "4";
+          } else if (top > 500 && top <= 600) {
+            col = "3";
+          } else if (top > 600 && top <= 700) {
+            col = "2";
+          } else if (top > 700 && top <= 800) {
+            col = "1";
+          }
+
+          document.getElementById("top").innerHTML = top;
+          document.getElementById("left").innerHTML = left;
+          document.getElementById("piece").innerHTML = piece;
+          document.getElementById("col").innerHTML = col;
+          document.getElementById("row").innerHTML = row;
+
+          const obj = {piece: piece, row: row, col: col};
+          myJSON = JSON.stringify(obj);
+        }
+        
+        function closeDragElement() {
+          /* stop moving when mouse button is released:*/
+
+          console.log(2)
+          pieceDetails()
+          console.log(myJSON)
+
+          document.onmouseup = null;
+          document.onmousemove = null;
+
+        }
+      }
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    {%endblock%}
+  </body>  
+</html>

@@ -1,0 +1,243 @@
+#chessBoard {
+    margin: 100px;
+    margin-top: 20px;
+    z-index: 2;
+    position: relative;
+
+    width: 800px;
+    height: 800px;
+    border: 5px black solid;
+    overflow: hidden;
+    background-color: #F2F2F2;
+    cursor: pointer;
+    background-image: linear-gradient(45deg, #808080 25%, transparent 25%), linear-gradient(-45deg, #808080 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #808080 75%), linear-gradient(-45deg, transparent 75%, #808080 75%);
+    background-size: 200px 200px;
+    background-position: 0 0, 0 100px, 100px -100px, -100px 0px;
+}
+
+#wR1 {
+    position: absolute;
+    top: 710px;
+    left: 10px;  
+    z-index: 9;
+    text-align: center;
+}
+#wN1 {
+    position: absolute;
+    top: 710px;
+    left: 110px;          
+    z-index: 9;
+    text-align: center;
+}          
+#wB1 {
+    position: absolute;
+    top: 710px;
+    left: 210px;
+    z-index: 9;
+    text-align: center;
+}
+#wK {
+    Position: absolute;
+    top: 710px;
+    left: 310px;          
+    z-index: 9;
+    text-align: center;
+}
+#wQ {
+    position: absolute;
+    top: 710px;
+    left: 410px;          
+    z-index: 9;
+    text-align: center;
+}
+#wB2 {
+    position: absolute;
+    top: 710px;
+    left: 510px;
+    z-index: 9;
+    text-align: center;
+} 
+#wN2 {
+    position: absolute;
+    top: 710px;
+    left: 610px;          
+    z-index: 9;
+    text-align: center;
+}
+#wR2 {
+    position: absolute;
+    top: 710px;
+    left: 710px;  
+    z-index: 9;
+    text-align: center;
+}
+#wP1 {
+    position: absolute;
+    top: 610px;
+    left: 10px;  
+    z-index: 9;
+    text-align: center;
+}
+#wP2 {
+    position: absolute;
+    top: 610px;
+    left: 110px;  
+    z-index: 9;
+    text-align: center;
+}      
+#wP3 {
+    position: absolute;
+    top: 610px;
+    left: 210px;  
+    z-index: 9;
+    text-align: center;
+}      
+#wP4 {
+    position: absolute;
+    top: 610px;
+    left: 310px;  
+    z-index: 9;
+    text-align: center;
+}      
+#wP5 {
+    position: absolute;
+    top: 610px;
+    left: 410px;  
+    z-index: 9;
+    text-align: center;
+}      
+#wP6 {
+    position: absolute;
+    top: 610px;
+    left: 510px;  
+    z-index: 9;
+    text-align: center;
+}      
+#wP7 {
+    position: absolute;
+    top: 610px;
+    left: 610px;  
+    z-index: 9;
+    text-align: center;
+}      
+#wP8 {
+    position: absolute;
+    top: 610px;
+    left: 710px;  
+    z-index: 9;
+    text-align: center;
+}
+
+    
+#bR1 {
+    position: absolute;
+    top: 10px;
+    left: 10px;  
+    z-index: 9;
+    text-align: center;
+}
+#bN1 {
+    position: absolute;
+    top: 10px;
+    left: 110px;          
+    z-index: 9;
+    text-align: center;
+}          
+#bB1 {
+    position: absolute;
+    top: 10px;
+    left: 210px;
+    z-index: 9;
+    text-align: center;
+}
+#bK {
+    Position: absolute;
+    top: 10px;
+    left: 310px;          
+    z-index: 9;
+    text-align: center;
+}
+#bQ {
+    position: absolute;
+    top: 10px;
+    left: 410px;          
+    z-index: 9;
+    text-align: center;
+}
+#bB2 {
+    position: absolute;
+    top: 10px;
+    left: 510px;
+    z-index: 9;
+    text-align: center;
+} 
+#bN2 {
+    position: absolute;
+    top: 10px;
+    left: 610px;          
+    z-index: 9;
+    text-align: center;
+}
+#bR2 {
+    position: absolute;
+    top: 10px;
+    left: 710px;  
+    z-index: 9;
+    text-align: center;
+}
+#bP1 {
+    position: absolute;
+    top: 110px;
+    left: 10px;  
+    z-index: 9;
+    text-align: center;
+}
+#bP2 {
+    position: absolute;
+    top: 110px;
+    left: 110px;  
+    z-index: 9;
+    text-align: center;
+}      
+#bP3 {
+    position: absolute;
+    top: 110px;
+    left: 210px;  
+    z-index: 9;
+    text-align: center;
+}      
+#bP4 {
+    position: absolute;
+    top: 110px;
+    left: 310px;  
+    z-index: 9;
+    text-align: center;
+}      
+#bP5 {
+    position: absolute;
+    top: 110px;
+    left: 410px;  
+    z-index: 9;
+    text-align: center;
+}      
+#bP6 {
+    position: absolute;
+    top: 110px;
+    left: 510px;  
+    z-index: 9;
+    text-align: center;
+}      
+#bP7 {
+    position: absolute;
+    top: 110px;
+    left: 610px;  
+    z-index: 9;
+    text-align: center;
+}      
+#bP8 {
+    position: absolute;
+    top: 110px;
+    left: 710px;  
+    z-index: 9;
+    text-align: center;
+}
