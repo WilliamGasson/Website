@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request,redirect,url_for
 import os
-from chess import GameState
-from chess import Move
+from Chess import GameState
+from Chess import Move
 
 
 
