@@ -1,2 +1,2 @@
-from .chess_engine import GameState
-from .chess_engine import Move
+from .chess_engine import GameState, Move
+from .chess_main import main, drawGameSate
