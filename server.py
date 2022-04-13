@@ -33,7 +33,6 @@ def image_recognition():
 def upload_image():
     return render_template("upload_img.html")
 
-
 @app.route("/lensless")
 def lensless():
     return render_template("lensless.html")
