@@ -6,12 +6,65 @@
     <link rel="stylesheet" href="static/css/template.css">
 
     <title>William Gasson</title>
+    <style>
+      body {
+        background-image: url('static/img/milky_way.jpg');
+        background-repeat: no-repeat;
+        background-attachment: fixed; 
+        background-size: 100% 100%;
+      }
+    </style>
   </head>
   
   <body>
     <!--navbar-->
-    {% extends 'template.html' %}
-    {%block content%}
+    <nav class="navbar navbar-expand-lg navbar-dark py-3">
+      <div class="container">
+
+        <a href="#" class="navbar-brand">William Gasson</a>
+
+        <div class="collapse navbar-collapse" id="navmenu">
+          <ul class="navbar-nav ms-auto">
+            <li class ="nav-item">
+              <a href="/home" class="nav-link">Home</a>
+            <li class ="nav-item">
+              <a href="about" class="nav-link">About</a>            
+            <li class ="nav-item">
+              <a href="chess" class="nav-link">Chess</a>
+            <li class ="nav-item">
+              <a href="img_rec" class="nav-link">Image Recognition</a>
+              <li class ="nav-item">
+                <a href="lensless" class="nav-link">Lensless Imaging</a>              
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <section class="text-light p-5 text-center text-sm-start">
+      
+      <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-between">
+          <div class="container p-2">
+            <h1>About me</h1>
+            <p class="lead">Hi I'm William</p>
+            <form action="/about">
+              <input type="submit" value="About me" />
+            </form>
+            <h3> Contact Me</h3>
+            <a href="https://www.linkedin.com/in/william-gasson/">
+              <button>LinkedIn</button>
+            </a>
+            <a href="https://github.com/WilliamGasson">
+              <button>GitHub</button>
+            </a>
+            <p>Email: william@gasson.org</p>
+          </div>
+          <!-- <img class="img-fluid w-50" src="static\img\Sudoku.png" alt=""> -->
+        </div>
+      </div>
+    </section>
+      
+
     <!--showcase-->
     <section class="bg-light text-dark p-5 text-center text-sm-start">
       <div class="container">
@@ -28,7 +81,7 @@
       </div>
     </section>
 
-    <section class="bg-dark text-light p-5 text-center text-sm-start">
+    <section class="bg-secondary text-light p-5 text-center text-sm-start">
       <div class="container">
         <div class="d-sm-flex align-items-center justify-content-between">
           <div class="container p-2">
@@ -43,23 +96,8 @@
       </div>
     </section>
 
-    <section class="bg-light text-dark p-5 text-center text-sm-start">
-      <div class="container">
-        <div class="d-sm-flex align-items-center justify-content-between">
-          <div class="container p-2">
-            <h1>About me</h1>
-            <p class="lead">Hi I'm William</p>
-            <form action="/about">
-              <input type="submit" value="About me" />
-          </form>
-          </div>
-          <!-- <img class="img-fluid w-50" src="static\img\Sudoku.png" alt=""> -->
-        </div>
-      </div>
-    </section>
 
 
-    {%endblock%}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   </body>
 </html>

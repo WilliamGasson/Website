@@ -2,7 +2,8 @@ from flask import Flask, render_template, request,redirect,url_for
 import os
 from Chess import GameState
 from Chess import Move
-
+#from Sudoku import GameState
+#from Sudoku import main
 
 
 app = Flask(__name__)
@@ -27,6 +28,8 @@ def chess():
 
 @app.route("/img_rec")
 def image_recognition():
+
+
     return render_template("img_rec.html")
 
 @app.route("/upload_img", methods=["GET", "POST"])
