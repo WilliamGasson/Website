@@ -57,7 +57,7 @@ def test():
 
 ## image upload
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
-FILE_TYPES = ["aac", "ai", "bmp", "cs", "css", "csv", "doc", "docx", "exe", "gif", "heic", "html", "java", "jpg", "js", "json", "jsx", "key", "m4p", "md", "mdx", "mov", "mp3", "mp4", "otf", "pdf", "php", "png", "pptx", "psd", "py", "raw", "rb", "sass", "scss", "sh", "sql", "svg", "tiff", "tsx", "ttf", "txt", "wav", "woff", "xlsx", "xml", "yml"]
+FILE_TYPES = [ "bmp", "cs", "css", "csv", "doc", "docx", "exe", "gif", "heic", "html", "java", "jpg", "js", "json", "jsx", "key", "m4p", "md", "mdx", "mov", "mp3", "mp4", "pdf", "php", "png", "pptx", "psd", "py", "raw", "rb", "sass", "scss", "sh", "sql", "svg", "tiff", "tsx", "ttf", "txt",  "xlsx", "xml", "yml"]
 UPLOAD_FOLDER = "tmp"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -120,6 +120,9 @@ def predict_image():
    
 
 def getReadableByteSize(num, suffix='B') -> str:
+    """
+    Converts file size into byte size
+    """
     for unit in ['', 'K', 'M', 'G', 'T', 'P', 'E', 'Z']:
         if abs(num) < 1024.0:
             return "%3.1f%s%s" % (num, unit, suffix)
@@ -127,11 +130,17 @@ def getReadableByteSize(num, suffix='B') -> str:
     return "%.1f%s%s" % (num, 'Y', suffix)
 
 def getTimeStampString(tSec: float) -> str:
+    """
+    Saves time the file was saved
+    """
     tObj = dt.datetime.fromtimestamp(tSec)
     tStr = dt.datetime.strftime(tObj, '%Y-%m-%d %H:%M:%S')
     return tStr
 
 def getIconClassForFilename(fName):
+    """
+    Gets the icon for the particular file type
+    """
     fileExt = Path(fName).suffix
     fileExt = fileExt[1:] if fileExt.startswith(".") else fileExt
     fileIconClass = f"bi bi-filetype-{fileExt}" if fileExt in FILE_TYPES else "bi bi-file-earmark"
