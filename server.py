@@ -1,12 +1,12 @@
-from flask import Flask, render_template, request,redirect,url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, send_file, abort, send_from_directory
 import os
-from Chess import GameState
-from Chess import Move
+# from Chess.src import GameState
+# from Chess.src import Move
 #from Sudoku import GameState
 #from Sudoku import main
 from werkzeug.utils import secure_filename
-from flask import send_from_directory
-
+from pathlib import Path
+import datetime as dt
 
 
 UPLOAD_FOLDER = "tmp"
@@ -15,6 +15,9 @@ ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+@app.route("/")
+def hello_world():
+    return "hello_world"
 
 @app.route("/home")
 def home():
@@ -23,6 +26,10 @@ def home():
 @app.route("/about")
 def about():
     return render_template("about.html")
+
+@app.route("/lensless")
+def lensless():
+    return render_template("lensless.html")
 
 @app.route("/chess", methods=['GET', 'POST'])
 def chess():
@@ -33,18 +40,6 @@ def chess():
         print(tag)
     wR1 = "a1"
     return render_template("chess.html", wR1=wR1)
-
-@app.route("/img_rec")
-def image_recognition():
-    return render_template("img_rec.html")
-
-@app.route("/upload_img", methods=["GET", "POST"])
-def upload_image():
-    return render_template("upload_img.html")
-
-@app.route("/lensless")
-def lensless():
-    return render_template("lensless.html")
 
 @app.route("/temp")
 def temp():
@@ -62,12 +57,17 @@ def test():
     else:   
         return  render_template("test.html")
 
-@app.route("/")
-def hello_world():
-    return "hello_world"
 
 
+## image upload
 
+@app.route("/img_rec")
+def image_recognition():
+    return render_template("img_rec.html")
+
+@app.route("/upload_img", methods=["GET", "POST"])
+def upload_image():
+    return render_template("upload_img.html")
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -94,6 +94,92 @@ def upload_file():
 @app.route('/uploads/<name>')
 def download_file(name):
     return send_from_directory(app.config["UPLOAD_FOLDER"], name)
+
+
+
+@app.route('/predict', methods=['GET', 'POST'])
+def predict_image():
+    ## upload the file
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # If the user does not select a file, the browser submits an
+        # empty file without a filename.
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            return redirect(url_for('download_file', name=filename))
+        
+    ## process the file
+    
+    ## make predictions
+        
+        
+    return render_template("upload.html")
+   
+
+
+@app.route('/')
+def index():
+    return "Hello World!!!"
+
+def getReadableByteSize(num, suffix='B') -> str:
+    for unit in ['', 'K', 'M', 'G', 'T', 'P', 'E', 'Z']:
+        if abs(num) < 1024.0:
+            return "%3.1f%s%s" % (num, unit, suffix)
+        num /= 1024.0
+    return "%.1f%s%s" % (num, 'Y', suffix)
+
+def getTimeStampString(tSec: float) -> str:
+    tObj = dt.datetime.fromtimestamp(tSec)
+    tStr = dt.datetime.strftime(tObj, '%Y-%m-%d %H:%M:%S')
+    return tStr
+
+def getIconClassForFilename(fName):
+    fileExt = Path(fName).suffix
+    fileExt = fileExt[1:] if fileExt.startswith(".") else fileExt
+    fileTypes = ["aac", "ai", "bmp", "cs", "css", "csv", "doc", "docx", "exe", "gif", "heic", "html", "java", "jpg", "js", "json", "jsx", "key", "m4p", "md", "mdx", "mov", "mp3",
+                 "mp4", "otf", "pdf", "php", "png", "pptx", "psd", "py", "raw", "rb", "sass", "scss", "sh", "sql", "svg", "tiff", "tsx", "ttf", "txt", "wav", "woff", "xlsx", "xml", "yml"]
+    fileIconClass = f"bi bi-filetype-{fileExt}" if fileExt in fileTypes else "bi bi-file-earmark"
+    return fileIconClass
+
+# route handler
+@app.route('/directory/', defaults={'reqPath': ''})
+@app.route('/directory/<path:reqPath>')
+def getFiles(reqPath):
+    # Join the base and the requested path
+    # could have done os.path.join, but safe_join ensures that files are not fetched from parent folders of the base folder
+    absPath = os.path.join(UPLOAD_FOLDER, reqPath)
+
+    # Return 404 if path doesn't exist
+    if not os.path.exists(absPath):
+        return abort(404)
+
+    # Check if path is a file and serve
+    if os.path.isfile(absPath):
+        return send_file(absPath)
+
+    # Show directory contents
+    def fObjFromScan(x):
+        fileStat = x.stat()
+        # return file information for rendering
+        return {'name': x.name,
+                'fIcon': "bi bi-folder-fill" if os.path.isdir(x.path) else getIconClassForFilename(x.name),
+                'relPath': os.path.relpath(x.path, UPLOAD_FOLDER).replace("\\", "/"),
+                'mTime': getTimeStampString(fileStat.st_mtime),
+                'size': getReadableByteSize(fileStat.st_size)}
+    fileObjs = [fObjFromScan(x) for x in os.scandir(absPath)]
+    # get parent directory url
+    parentFolderPath = os.path.relpath(
+        Path(absPath).parents[0], UPLOAD_FOLDER).replace("\\", "/")
+    return render_template('directory.html', data={'files': fileObjs,
+                                                 'parentFolder': parentFolderPath})
 
 
 if __name__ == '__main__':
