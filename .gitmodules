@@ -4,3 +4,6 @@
 [submodule "Chess"]
 	path = Chess
 	url = https://github.com/WilliamGasson/Chess
+[submodule "Computer_Vision"]
+	path = Computer_Vision
+	url = https://github.com/WilliamGasson/Computer_Vision
