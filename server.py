@@ -8,12 +8,8 @@ from werkzeug.utils import secure_filename
 from pathlib import Path
 import datetime as dt
 
-
-UPLOAD_FOLDER = "tmp"
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
-
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 
 @app.route("/")
 def hello_world():
@@ -60,6 +56,10 @@ def test():
 
 
 ## image upload
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+FILE_TYPES = ["aac", "ai", "bmp", "cs", "css", "csv", "doc", "docx", "exe", "gif", "heic", "html", "java", "jpg", "js", "json", "jsx", "key", "m4p", "md", "mdx", "mov", "mp3", "mp4", "otf", "pdf", "php", "png", "pptx", "psd", "py", "raw", "rb", "sass", "scss", "sh", "sql", "svg", "tiff", "tsx", "ttf", "txt", "wav", "woff", "xlsx", "xml", "yml"]
+UPLOAD_FOLDER = "tmp"
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route("/img_rec")
 def image_recognition():
@@ -90,11 +90,6 @@ def upload_file():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return redirect(url_for('download_file', name=filename))
     return render_template("upload.html")
-    
-@app.route('/uploads/<name>')
-def download_file(name):
-    return send_from_directory(app.config["UPLOAD_FOLDER"], name)
-
 
 
 @app.route('/predict', methods=['GET', 'POST'])
@@ -124,11 +119,6 @@ def predict_image():
     return render_template("upload.html")
    
 
-
-@app.route('/')
-def index():
-    return "Hello World!!!"
-
 def getReadableByteSize(num, suffix='B') -> str:
     for unit in ['', 'K', 'M', 'G', 'T', 'P', 'E', 'Z']:
         if abs(num) < 1024.0:
@@ -144,9 +134,7 @@ def getTimeStampString(tSec: float) -> str:
 def getIconClassForFilename(fName):
     fileExt = Path(fName).suffix
     fileExt = fileExt[1:] if fileExt.startswith(".") else fileExt
-    fileTypes = ["aac", "ai", "bmp", "cs", "css", "csv", "doc", "docx", "exe", "gif", "heic", "html", "java", "jpg", "js", "json", "jsx", "key", "m4p", "md", "mdx", "mov", "mp3",
-                 "mp4", "otf", "pdf", "php", "png", "pptx", "psd", "py", "raw", "rb", "sass", "scss", "sh", "sql", "svg", "tiff", "tsx", "ttf", "txt", "wav", "woff", "xlsx", "xml", "yml"]
-    fileIconClass = f"bi bi-filetype-{fileExt}" if fileExt in fileTypes else "bi bi-file-earmark"
+    fileIconClass = f"bi bi-filetype-{fileExt}" if fileExt in FILE_TYPES else "bi bi-file-earmark"
     return fileIconClass
 
 # route handler
