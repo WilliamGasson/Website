@@ -88,36 +88,13 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('download_file', name=filename))
+            return redirect(url_for('getFiles', reqPath=filename))
     return render_template("upload.html")
 
 
-@app.route('/predict', methods=['GET', 'POST'])
-def predict_image():
-    ## upload the file
-    if request.method == 'POST':
-        # check if the post request has the file part
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
-        file = request.files['file']
-        # If the user does not select a file, the browser submits an
-        # empty file without a filename.
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('download_file', name=filename))
-        
-    ## process the file
-    
-    ## make predictions
-        
-        
-    return render_template("upload.html")
-   
+@app.route('/uploads/<name>')
+def download_file(name):
+    return send_from_directory(app.config["UPLOAD_FOLDER"], name)
 
 def getReadableByteSize(num, suffix='B') -> str:
     """
@@ -146,6 +123,16 @@ def getIconClassForFilename(fName):
     fileIconClass = f"bi bi-filetype-{fileExt}" if fileExt in FILE_TYPES else "bi bi-file-earmark"
     return fileIconClass
 
+# Show directory contents
+def fObjFromScan(x):
+    fileStat = x.stat()
+    # return file information for rendering
+    return {'name': x.name,
+            'fIcon': "bi bi-folder-fill" if os.path.isdir(x.path) else getIconClassForFilename(x.name),
+            'relPath': os.path.relpath(x.path, UPLOAD_FOLDER).replace("\\", "/"),
+            'mTime': getTimeStampString(fileStat.st_mtime),
+            'size': getReadableByteSize(fileStat.st_size)}
+
 # route handler
 @app.route('/directory/', defaults={'reqPath': ''})
 @app.route('/directory/<path:reqPath>')
@@ -162,21 +149,11 @@ def getFiles(reqPath):
     if os.path.isfile(absPath):
         return send_file(absPath)
 
-    # Show directory contents
-    def fObjFromScan(x):
-        fileStat = x.stat()
-        # return file information for rendering
-        return {'name': x.name,
-                'fIcon': "bi bi-folder-fill" if os.path.isdir(x.path) else getIconClassForFilename(x.name),
-                'relPath': os.path.relpath(x.path, UPLOAD_FOLDER).replace("\\", "/"),
-                'mTime': getTimeStampString(fileStat.st_mtime),
-                'size': getReadableByteSize(fileStat.st_size)}
     fileObjs = [fObjFromScan(x) for x in os.scandir(absPath)]
     # get parent directory url
     parentFolderPath = os.path.relpath(
         Path(absPath).parents[0], UPLOAD_FOLDER).replace("\\", "/")
-    return render_template('directory.html', data={'files': fileObjs,
-                                                 'parentFolder': parentFolderPath})
+    return render_template('directory.html', data={'files': fileObjs, 'parentFolder': parentFolderPath})
 
 
 if __name__ == '__main__':
