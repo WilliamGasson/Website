@@ -1,6 +1,6 @@
 [submodule "Sudoku"]
 	path = Sudoku
 	url = https://github.com/WilliamGasson/Sudoku
-#[submodule "Chess"]
-#	path = Chess
-#	url = https://github.com/WilliamGasson/Chess
+[submodule "Chess"]
+	path = Chess
+	url = https://github.com/WilliamGasson/Chess
