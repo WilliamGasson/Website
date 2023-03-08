@@ -16,3 +16,12 @@ This repository is for my personal website, it contains a number of smaller proj
 Best wishes,
 
 William
+
+
+## TODO
+
+Fix navigation in the directory - separate \directory from \directory\<filename>
+
+
+
+
