@@ -1,3 +1,58 @@
+"""
+server.py
+
+Pages
+Home 
+    - Links to other pages
+About me 
+    - CV 
+    - etc
+Chess 
+    - Play chess online 
+    - Vs computer 
+    - Vs other people
+Sudoku 
+    - Play sudoku 
+    - Upload photo 
+    - Solve yourself 
+    - Autosolve
+Computer Vision
+    - upload photo
+    - 1 identify object
+    - 2 bounding box round objects
+
+Api
+Iris api 
+    - From training project
+Text classifier api
+    - From training project
+Edgar
+    - From project enter ticker predict stock
+"""
+
+__date__ = "2023-03-09"
+__author__ = "WilliamGasson"
+__version__ = "0.1"
+
+
+# %% --------------------------------------------------------------------------
+# Imports
+# -----------------------------------------------------------------------------
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# %% --------------------------------------------------------------------------
+# Set Random State
+# -----------------------------------------------------------------------------
+rng = np.random.RandomState(123)
+
+# %% --------------------------------------------------------------------------
+#  First Cell
+# -----------------------------------------------------------------------------
+
+
+
 from flask import Flask, render_template, request, redirect, url_for, flash, send_file, abort, send_from_directory
 import os
 # from Chess.src import GameState
@@ -7,15 +62,17 @@ import os
 from werkzeug.utils import secure_filename
 from pathlib import Path
 import datetime as dt
+import logging
+
 
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route("/hello_world")
 def hello_world():
     return "hello_world"
 
-@app.route("/home")
+@app.route("/")
 def home():
     return render_template("home.html")
     
