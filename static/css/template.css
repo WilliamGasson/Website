@@ -45,3 +45,15 @@
 .foot-col-right p{
  color: rgb(224, 224, 224);   
 }
+
+
+
+
+.row {
+   display: flex;
+ }
+ 
+ .column {
+   flex: 50%;
+   padding: 50px;
+ }

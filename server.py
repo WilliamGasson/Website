@@ -61,8 +61,23 @@ FILE_TYPES = [ "bmp", "cs", "css", "csv", "doc", "docx", "exe", "gif", "heic", "
 UPLOAD_FOLDER = "tmp"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-@app.route("/img_rec")
+@app.route('/img_rec', methods=['GET', 'POST'])
 def image_recognition():
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # If the user does not select a file, the browser submits an
+        # empty file without a filename.
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            return redirect(url_for('getFiles', reqPath=filename))
     return render_template("img_rec.html")
 
 @app.route("/upload_img", methods=["GET", "POST"])
@@ -80,15 +95,16 @@ def upload_file():
             flash('No file part')
             return redirect(request.url)
         file = request.files['file']
-        # If the user does not select a file, the browser submits an
-        # empty file without a filename.
+        
+        # If the user does not select a file, the browser submits an empty file without a filename.
         if file.filename == '':
             flash('No selected file')
             return redirect(request.url)
+        
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('getFiles', reqPath=filename))
+            return redirect(url_for('getFiles', reqPath=filename)) # 'getFiles' name of function to look for
     return render_template("upload.html")
 
 

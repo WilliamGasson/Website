@@ -15,21 +15,22 @@ Image Recognition
     <div class="col">
 
       <h1>Upload an image</h1>
-      <hr>
 
-      <form action="/upload_img" method="POST" enctype="multipart/form-data">
-
-        <div class="form-group">
-          <label>Select image</label>
-          <div class="custom-file">
-            <input type="file" class="custom-file-input" name="image" id="image">
-          </div>
+      <section class="bg-secondary text-light p-5 text-center text-sm-start">
+        <div class="container">
+            <title>Upload new File</title>
+            <form method=post enctype=multipart/form-data>
+                <input type=file name=file>
+                <input type=submit value=Upload>
+            </form>
         </div>
+      </section>
 
-        <input type="submit""></input>
+      <pre>
 
-      </form>
-      
+
+      </pre>
+
       <div>
         <img class="img-fluid" src="static\img\Sudoku2.png" alt="">
       </div>
