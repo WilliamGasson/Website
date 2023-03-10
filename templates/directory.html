@@ -16,6 +16,7 @@ Directory
                 <th>Name</th>
                 <th>Modified Time</th>
                 <th>Size</th>
+                <th>CV</th>
             </tr>
         </thead>
         <tbody>
@@ -30,6 +31,8 @@ Directory
                 </td>
                 <td></td>
                 <td></td>
+                <td></td>
+
             </tr>
             {% for fileObj in data['files'] %}
             <tr>
@@ -43,6 +46,14 @@ Directory
                 </td>
                 <td>{{fileObj['mTime']}}</td>
                 <td>{{fileObj['size']}}</td>
+                <td>
+                    <a href="{{ url_for('identifyImg', reqPath=fileObj['relPath']) }}">
+                        <span>
+                            Identify object
+                        </span>
+                    </a>
+                </td>
+
             </tr>
             {% endfor %}
         </tbody>
@@ -56,21 +67,23 @@ Directory
     th {text-align: left;}
     </style>
 </div>
+
+
+<section class="text-dark p-5 text-center text-sm-start">
+  
+    <div class="container">
+        <title>Upload new File</title>
+        <h1>Upload new File</h1>
+        <form method=post enctype=multipart/form-data>
+            <input type=file name=file>
+            <input type=submit value=Upload>
+        </form>
+    </div>
+</section>
+
+
 <pre>
           
-          
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

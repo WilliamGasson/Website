@@ -1,0 +1,26 @@
+
+{% extends 'template.html' %}
+
+{% block title %}
+Computer Vision
+{% endblock %}
+
+{%block content%}
+
+<section class="bg-secondary text-light p-5 text-center text-sm-start">
+    <div class="container">
+      <div class="d-sm-flex align-items-center justify-content-between">
+        <img class="img-fluid w-50" src="..\static\img\bounding_box.jpg" alt="">
+        <div class="container p-2">
+            <h1>Computer Vision</h1>
+            <p class="lead">The model predicts that the image is of a cat</p>
+            <form action="/directory">
+                <input type="submit" value="New image" />
+            </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+{%endblock%}

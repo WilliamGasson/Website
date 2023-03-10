@@ -1,33 +1,6 @@
 """
 server.py
 
-Pages
-Home 
-    - Links to other pages
-About me 
-    - CV 
-    - etc
-Chess 
-    - Play chess online 
-    - Vs computer 
-    - Vs other people
-Sudoku 
-    - Play sudoku 
-    - Upload photo 
-    - Solve yourself 
-    - Autosolve
-Computer Vision
-    - upload photo
-    - 1 identify object
-    - 2 bounding box round objects
-
-Api
-Iris api 
-    - From training project
-Text classifier api
-    - From training project
-Edgar
-    - From project enter ticker predict stock
 """
 
 __date__ = "2023-03-09"
@@ -37,18 +10,6 @@ __version__ = "0.1"
 
 # %% --------------------------------------------------------------------------
 # Imports
-# -----------------------------------------------------------------------------
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-
-# %% --------------------------------------------------------------------------
-# Set Random State
-# -----------------------------------------------------------------------------
-rng = np.random.RandomState(123)
-
-# %% --------------------------------------------------------------------------
-#  First Cell
 # -----------------------------------------------------------------------------
 
 
@@ -118,7 +79,7 @@ FILE_TYPES = [ "bmp", "cs", "css", "csv", "doc", "docx", "exe", "gif", "heic", "
 UPLOAD_FOLDER = "tmp"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-@app.route('/img_rec', methods=['GET', 'POST'])
+@app.route('/sudoku', methods=['GET', 'POST'])
 def image_recognition():
     if request.method == 'POST':
         # check if the post request has the file part
@@ -135,7 +96,7 @@ def image_recognition():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return redirect(url_for('getFiles', reqPath=filename))
-    return render_template("img_rec.html")
+    return render_template("sudoku.html")
 
 @app.route("/upload_img", methods=["GET", "POST"])
 def upload_image():
@@ -227,6 +188,29 @@ def getFiles(reqPath):
     parentFolderPath = os.path.relpath(
         Path(absPath).parents[0], UPLOAD_FOLDER).replace("\\", "/")
     return render_template('directory.html', data={'files': fileObjs, 'parentFolder': parentFolderPath})
+
+
+
+@app.route('/cv/', defaults={'reqPath': ''})
+@app.route('/cv/<path:reqPath>')
+def identifyImg(reqPath):
+    # Join the base and the requested path
+    # could have done os.path.join, but safe_join ensures that files are not fetched from parent folders of the base folder
+    absPath = os.path.join(UPLOAD_FOLDER, reqPath)
+    # get parent directory url
+
+    FolderPath = os.path.relpath(Path(absPath).parents[0], UPLOAD_FOLDER).replace("\\", "/")
+    
+    # Return 404 if path doesn't exist
+    if not os.path.exists(absPath):
+        return abort(404)
+
+    # Check if path is a file and serve
+    if os.path.isfile(absPath):
+        
+        fileObjs = [fObjFromScan(x) for x in os.scandir(FolderPath)]
+        return render_template('vision.html', data={'files': fileObjs, 'folder': FolderPath})
+    return render_template('vision.html')
 
 
 if __name__ == '__main__':

@@ -1,0 +1,153 @@
+<link rel="stylesheet" href="static/css/games.css">
+
+{% extends 'template.html' %}
+
+{% block title %}
+Image Recognition
+{%endblock%}
+
+{%block content%}
+<div class="container">
+  <h1> Sudoku Recognition </h1>
+  <p> On this page you can upload an image and seach for particular features in the image</p>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+
+      <h1>Upload an image</h1>
+
+      <section class="bg-secondary text-light p-5 text-center text-sm-start">
+        <div class="container">
+            <title>Upload new File</title>
+            <form method=post enctype=multipart/form-data>
+                <input type=file name=file>
+                <input type=submit value=Upload>
+            </form>
+        </div>
+      </section>
+
+      <pre>
+
+
+      </pre>
+
+
+      <style>
+        table { border-collapse: collapse; font-family: Calibri, sans-serif; }
+        colgroup, tbody { border: solid medium; }
+        td { border: solid thin; height: 1.4em; width: 1.4em; text-align: center; padding: 0; }
+      </style>
+
+
+      <div id="center">
+      
+        <table>
+          <caption>Sudoku of the day</caption>
+          <colgroup><col><col><col></colgroup>
+          <colgroup><col><col><col></colgroup>
+          <colgroup><col><col><col></colgroup>
+          
+          <tbody>
+           <tr> <td>1 <td>  <td>3 <td>6 <td>  <td>4 <td>7 <td>  <td>9
+           <tr> <td>  <td>2 <td>  <td>  <td>9 <td>  <td>  <td>1 <td>
+           <tr> <td>7 <td>  <td>  <td>  <td>  <td>  <td>  <td>  <td>6
+          <tbody>
+           <tr> <td>2 <td>  <td>4 <td>  <td>3 <td>  <td>9 <td>  <td>8
+           <tr> <td>  <td>  <td>  <td>  <td>  <td>  <td>  <td>  <td>
+           <tr> <td>5 <td>  <td>  <td>9 <td>  <td>7 <td>  <td>  <td>1
+          <tbody>
+           <tr> <td>6 <td>  <td>  <td>  <td>5 <td>  <td>  <td>  <td>2
+           <tr> <td>  <td>  <td>  <td>  <td>7 <td>  <td>  <td>  <td>
+           <tr> <td>9 <td>  <td>  <td>8 <td>  <td>2 <td>  <td>  <td>5
+        </table>
+      </div>
+
+      <div>
+        <img class="img-fluid" src="static\img\Sudoku.png" alt="">
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<pre>
+
+
+</pre>
+
+
+
+
+
+<script>
+function sudoku(){
+  var data = [
+      1, 0, 3, 6, 0, 4, 7, 0, 9, // 0x0
+      0, 2, 0, 0, 9, 0, 0, 1, 0, // 0x1
+      7, 0, 0, 0, 0, 0, 0, 0, 6, // 0x2
+      2, 0, 4, 0, 3, 0, 9, 0, 8, // 1x0
+      0, 0, 0, 0, 0, 0, 0, 0, 0, // 1x1
+      5, 0, 0, 9, 0, 7, 0, 0, 1, // 1x2
+      6, 0, 0, 0, 5, 0, 0, 0, 2, // 2x0
+      0, 0, 0, 0, 7, 0, 0, 0, 0, // 2x1
+      9, 0, 0, 8, 0, 2, 0, 0, 5  // 2x2
+  ];
+
+  // Build page content.
+  $('body').append($('<div>').addClass('wrapper')
+      .append($('<div>').addClass('col')
+        .append($('<h1>').html('First Method'))
+        .append(generateSudokuGrid()))
+      .append($('<div>').addClass('col')
+        .append($('<h1>').html('Second Method'))
+        .append(generateSudokuGrid2())));
+
+  // Populate grids with data.
+  $('table[class^="sudoku"]').each(function (index, grid) {
+      populateGrid($(grid), data);
+  });
+};
+
+function populateGrid(grid, data) {
+  grid.find('td').each(function (index, td) {
+      $(td).text(data[index] || '');
+  });
+}
+
+/* First Method */
+function generateSudokuGrid(data) {
+  return $('<table>').append(multiPush(3, function () {
+      return $('<colgroup>').append(multiPush(3, function () {
+          return $('<col>');
+      }));
+  })).append(multiPush(3, function () {
+      return $('<tbody>').append(multiPush(3, function () {
+          return $('<tr>').append(multiPush(9, function () {
+              return $('<td>');
+          }));
+      }));
+  })).addClass('sudoku');
+}
+
+/* Second Method */
+function generateSudokuGrid2(data) {
+  return $('<table>').append(multiPush(9, function () {
+      return $('<tr>').append(multiPush(9, function () {
+          return $('<td>');
+      }));
+  })).addClass('sudoku2');
+}
+
+function multiPush(count, func, scope) {
+  var arr = [];
+  for (var i = 0; i < count; i++) {
+      arr.push(func.call(scope, i));
+  }
+  return arr;
+}
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+{%endblock%}
