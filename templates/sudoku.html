@@ -8,68 +8,65 @@ Image Recognition
 
 {%block content%}
 <div class="container">
-  <h1> Sudoku Recognition </h1>
-  <p> On this page you can upload an image and seach for particular features in the image</p>
+  <div class="d-sm-flex align-items-center justify-content-between">
+    <div class="container p-2">
+      <div class="container">
+        <h1> Sudoku Recognition </h1>
+        <p> On this page you can upload an image and seach for particular features in the image</p>
+      </div>
+    </div>
+    <img class="img-fluid" src="static\img\Sudoku.png" alt="">
+  </div>
 </div>
 
-<div class="container">
-  <div class="row">
-    <div class="col">
-
-      <h1>Upload an image</h1>
-
-      <section class="bg-secondary text-light p-5 text-center text-sm-start">
-        <div class="container">
-            <title>Upload new File</title>
-            <form method=post enctype=multipart/form-data>
-                <input type=file name=file>
-                <input type=submit value=Upload>
-            </form>
-        </div>
-      </section>
-
-      <pre>
 
 
-      </pre>
+<section class="bg-secondary text-light p-5 text-center text-sm-start">
+  <div class="container">
+    <h1>Upload an image</h1>
 
-
-      <style>
-        table { border-collapse: collapse; font-family: Calibri, sans-serif; }
-        colgroup, tbody { border: solid medium; }
-        td { border: solid thin; height: 1.4em; width: 1.4em; text-align: center; padding: 0; }
-      </style>
-
-
-      <div id="center">
-      
-        <table>
-          <caption>Sudoku of the day</caption>
-          <colgroup><col><col><col></colgroup>
-          <colgroup><col><col><col></colgroup>
-          <colgroup><col><col><col></colgroup>
-          
-          <tbody>
-           <tr> <td>1 <td>  <td>3 <td>6 <td>  <td>4 <td>7 <td>  <td>9
-           <tr> <td>  <td>2 <td>  <td>  <td>9 <td>  <td>  <td>1 <td>
-           <tr> <td>7 <td>  <td>  <td>  <td>  <td>  <td>  <td>  <td>6
-          <tbody>
-           <tr> <td>2 <td>  <td>4 <td>  <td>3 <td>  <td>9 <td>  <td>8
-           <tr> <td>  <td>  <td>  <td>  <td>  <td>  <td>  <td>  <td>
-           <tr> <td>5 <td>  <td>  <td>9 <td>  <td>7 <td>  <td>  <td>1
-          <tbody>
-           <tr> <td>6 <td>  <td>  <td>  <td>5 <td>  <td>  <td>  <td>2
-           <tr> <td>  <td>  <td>  <td>  <td>7 <td>  <td>  <td>  <td>
-           <tr> <td>9 <td>  <td>  <td>8 <td>  <td>2 <td>  <td>  <td>5
-        </table>
-      </div>
-
-      <div>
-        <img class="img-fluid" src="static\img\Sudoku.png" alt="">
-      </div>
-
-    </div>
+    <title>Upload new file</title>
+    <form method=post enctype=multipart/form-data>
+        <input type=file name=file>
+        <input type=submit value=Upload>
+    </form>
   </div>
+</section>
+
+<pre>
+
+
+</pre>
+
+
+<style>
+  table { border-collapse: collapse; font-family: Calibri, sans-serif; }
+  colgroup, tbody { border: solid medium; }
+  td { border: solid thin; height: 1.4em; width: 1.4em; text-align: center; padding: 0; }
+</style>
+
+
+<div class = "center">
+
+  <table>
+    <caption>Sudoku of the day</caption>
+    <colgroup><col><col><col></colgroup>
+    <colgroup><col><col><col></colgroup>
+    <colgroup><col><col><col></colgroup>
+    
+    <tbody>
+      <tr> <td>1 <td>  <td>3 <td>6 <td>  <td>4 <td>7 <td>  <td>9
+      <tr> <td>  <td>2 <td>  <td>  <td>9 <td>  <td>  <td>1 <td>
+      <tr> <td>7 <td>  <td>  <td>  <td>  <td>  <td>  <td>  <td>6
+    <tbody>
+      <tr> <td>2 <td>  <td>4 <td>  <td>3 <td>  <td>9 <td>  <td>8
+      <tr> <td>  <td>  <td>  <td>  <td>  <td>  <td>  <td>  <td>
+      <tr> <td>5 <td>  <td>  <td>9 <td>  <td>7 <td>  <td>  <td>1
+    <tbody>
+      <tr> <td>6 <td>  <td>  <td>  <td>5 <td>  <td>  <td>  <td>2
+      <tr> <td>  <td>  <td>  <td>  <td>7 <td>  <td>  <td>  <td>
+      <tr> <td>9 <td>  <td>  <td>8 <td>  <td>2 <td>  <td>  <td>5
+  </table>
 </div>
 
 <pre>
