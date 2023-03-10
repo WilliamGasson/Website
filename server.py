@@ -16,10 +16,10 @@ __version__ = "0.1"
 
 from flask import Flask, render_template, request, redirect, url_for, flash, send_file, abort, send_from_directory
 import os
-# from Chess.src import GameState
-# from Chess.src import Move
-#from Sudoku import GameState
-#from Sudoku import main
+from Chess import GameState
+from Chess import Move
+from Sudoku import GameState
+from Sudoku import main
 from werkzeug.utils import secure_filename
 from pathlib import Path
 import datetime as dt
