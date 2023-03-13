@@ -55,6 +55,11 @@ def chess():
     wR1 = "a1"
     return render_template("chess.html", wR1=wR1)
 
+@app.route("/articles")
+def articles():
+    return render_template("articles.html")
+
+
 @app.route("/temp")
 def temp():
     return render_template("template.html")
