@@ -20,8 +20,15 @@ from Chess import GameState
 from Chess import Move
 from Sudoku import GameState
 from Sudoku import main
+
+from Computer_Vision import predict, model_class
+
+
 from werkzeug.utils import secure_filename
 from pathlib import Path
+from PIL import Image
+import base64
+import io
 import datetime as dt
 import logging
 
@@ -77,6 +84,21 @@ def test():
         return  render_template("test.html")
 
 
+@app.route("/testcv")
+def testcv():
+    model = predict.load_model()
+    img = "tmp/0001.png"
+    prediction = predict.predict_image(img, model)
+    
+    print( ', Predicted:', prediction)
+    
+    im = Image.open(img)
+
+    data = io.BytesIO()
+    im.save(data, "JPEG")
+    encoded_img_data = base64.b64encode(data.getvalue())
+        
+    return render_template("testcv.html", pred = "prediction", img_data=encoded_img_data.decode('utf-8'))
 
 ## image upload
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
@@ -215,7 +237,13 @@ def identifyImg(reqPath):
         
         fileObjs = [fObjFromScan(x) for x in os.scandir(FolderPath)]
         return render_template('vision.html', data={'files': fileObjs, 'folder': FolderPath})
+    
     return render_template('vision.html')
+
+
+
+
+
 
 
 if __name__ == '__main__':

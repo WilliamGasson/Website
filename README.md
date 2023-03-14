@@ -43,12 +43,10 @@ This repository is for my personal website, it contains a number of smaller proj
 
 
 ## TODO
-1. Modify the directory to allow you to select a file to run through CV
+1. Modify the directory to allow you to select a file to run through C.V.
 2. Create a new CV page to output the result
-3. Add a upload file to the directory page
+3. Add an upload file to the directory page
 
-
-3. 
 
 
 Fix navigation in the directory - separate \directory from \directory\<filename>
