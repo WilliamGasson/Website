@@ -21,7 +21,7 @@ from Chess import Move
 from Sudoku import GameState
 from Sudoku import main
 
-from Computer_Vision import predict, model_class
+# from Computer_Vision import predict, model_class
 
 
 from werkzeug.utils import secure_filename
@@ -86,10 +86,10 @@ def test():
 
 @app.route("/testcv")
 def testcv():
-    model = predict.load_model()
+    #model = predict.load_model()
     img = "tmp/0001.png"
-    prediction = predict.predict_image(img, model)
-    
+    #prediction = predict.predict_image(img, model)
+    prediction = "bird"
     print( ', Predicted:', prediction)
     
     im = Image.open(img)
@@ -98,7 +98,7 @@ def testcv():
     im.save(data, "JPEG")
     encoded_img_data = base64.b64encode(data.getvalue())
         
-    return render_template("testcv.html", pred = "prediction", img_data=encoded_img_data.decode('utf-8'))
+    return render_template("testcv.html", pred = prediction, img_data=encoded_img_data.decode('utf-8'))
 
 ## image upload
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
