@@ -26,6 +26,12 @@ This repository is for my personal website, it contains a number of smaller proj
 - 1 identify object
 - 2 bounding box round objects
 
+
+### Articles / Notes
+
+- Convert Latex into HTML
+
+
 ## API
 ### Iris API 
 - From training project
@@ -33,6 +39,7 @@ This repository is for my personal website, it contains a number of smaller proj
 - From training project
 ### Edgar
 - From the project enter ticker predict stock
+
 
 
 ## TODO
