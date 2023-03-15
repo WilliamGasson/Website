@@ -1,0 +1,52 @@
+
+{% extends 'template.html' %}
+
+{% block title %}
+Computer Vision
+{% endblock %}
+
+{%block content%}
+
+<section class="bg-secondary text-light p-5 text-center text-sm-start">
+  <div class="container">
+    <div class="d-sm-flex align-items-center justify-content-between">
+      <img id="picture" src="data:image/jpeg;base64,{{ img_data }}">
+      <div class="container p-2">
+        <center> 
+          <h1>Computer Vision</h1>
+          <h3 class="lead">The model predicts that the image is of a {{ pred }}</h3>
+
+          <form action="/directory">
+              <input type="submit" value="New image" />
+          </form>
+        </center> 
+      </div>
+    </div>
+  </div>
+
+  <pre>
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+  </pre>
+
+</section>
+
+
+
+
+{%endblock%}

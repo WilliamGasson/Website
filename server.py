@@ -84,26 +84,6 @@ def test():
         return  render_template("test.html")
 
 
-@app.route("/testcv")
-def testcv():
-    
-    img_path = "../Computer_Vision/data/cifar10/test/bird/0030.png"
-    # img_path = "temp/0029.png"
-    model_path = "../Computer_Vision/models/cifar10-resnet9.pth"
-    #model_type = ResNet9(3, 10)
-
-    pred_model = predict.predict(model_path)#, model_type)
-    prediction = pred_model.predict_img(img_path)
-    print('Predicted:', prediction)
-    
-    im = Image.open(img_path)
-    newsize = (300, 300)
-    im = im.resize(newsize)
-    data = io.BytesIO()
-    im.save(data, "JPEG")
-    encoded_img_data = base64.b64encode(data.getvalue())
-        
-    return render_template("testcv.html", pred = prediction, img_data=encoded_img_data.decode('utf-8'))
 
 ## image upload
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
@@ -241,10 +221,27 @@ def identifyImg(reqPath):
     if os.path.isfile(absPath):
         
         fileObjs = [fObjFromScan(x) for x in os.scandir(FolderPath)]
-        return render_template('vision.html', data={'files': fileObjs, 'folder': FolderPath})
+        print(absPath)
+        img_path = absPath
+        model_path = "../Computer_Vision/models/cifar10-resnet9.pth"
+        # model_type = ResNet9(3, 10)
+
+        pred_model = predict.predict(model_path)#, model_type)
+        prediction = pred_model.predict_img(img_path)
+        print('Predicted:', prediction)
+        
+        im = Image.open(img_path)
+        newsize = (300, 300)
+        im = im.resize(newsize)
+        data = io.BytesIO()
+        im.save(data, "JPEG")
+        encoded_img_data = base64.b64encode(data.getvalue())
+        
+        return render_template("cv.html", pred = prediction, img_data=encoded_img_data.decode('utf-8'))
+    
+        # return render_template('vision.html', data={'files': fileObjs, 'folder': FolderPath})
     
     return render_template('vision.html')
-
 
 
 
