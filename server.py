@@ -86,16 +86,19 @@ def test():
 
 @app.route("/testcv")
 def testcv():
-    img_path = "../../Computer_Vision/data/cifar10/test/bird/0029.png"
-    model_path = "../../Computer_Vision/models/cifar10-resnet9.pth"
-    # model_type = ResNet9(3, 10)
+    
+    img_path = "../Computer_Vision/data/cifar10/test/bird/0030.png"
+    # img_path = "temp/0029.png"
+    model_path = "../Computer_Vision/models/cifar10-resnet9.pth"
+    #model_type = ResNet9(3, 10)
 
-    pred_model = predict(model_path, model_type)
+    pred_model = predict.predict(model_path)#, model_type)
     prediction = pred_model.predict_img(img_path)
     print('Predicted:', prediction)
     
-    im = Image.open(img)
-
+    im = Image.open(img_path)
+    newsize = (300, 300)
+    im = im.resize(newsize)
     data = io.BytesIO()
     im.save(data, "JPEG")
     encoded_img_data = base64.b64encode(data.getvalue())
