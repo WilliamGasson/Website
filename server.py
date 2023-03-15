@@ -21,7 +21,7 @@ from Chess import Move
 from Sudoku import GameState
 from Sudoku import main
 
-# from Computer_Vision import predict, model_class
+from Computer_Vision.src import predict, model_class, torch_helper
 
 
 from werkzeug.utils import secure_filename
@@ -86,11 +86,13 @@ def test():
 
 @app.route("/testcv")
 def testcv():
-    #model = predict.load_model()
-    img = "tmp/0001.png"
-    #prediction = predict.predict_image(img, model)
-    prediction = "bird"
-    print( ', Predicted:', prediction)
+    img_path = "../../Computer_Vision/data/cifar10/test/bird/0029.png"
+    model_path = "../../Computer_Vision/models/cifar10-resnet9.pth"
+    # model_type = ResNet9(3, 10)
+
+    pred_model = predict(model_path, model_type)
+    prediction = pred_model.predict_img(img_path)
+    print('Predicted:', prediction)
     
     im = Image.open(img)
 
