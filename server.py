@@ -29,26 +29,6 @@ import time
 app = Flask(__name__)
 
 
-@app.route('/ajax')
-def index():
-    return render_template('ajax.html')
-
-@app.route('/create_file', methods=['POST'])
-def create_file():
-    if request.method == 'POST':
-        with open(f"{request.form.get('name')}.txt", "w") as f:
-            f.write('FILE CREATED AND SUCCESSFULL POST REQUEST!')
-        return ('', 204)
-
-
-
-
-
-
-
-
-
-
 @app.route("/hello_world")
 def hello_world():
     return "hello_world"
@@ -68,13 +48,19 @@ def lensless():
 @app.route("/chess", methods=['GET', 'POST'])
 def chess():
     # TODO 
+    # make it function more like chess main
+    # replace drag with click click
+    # pass first and last click to server
+    # check move through chess engine
+    # if move is good move piece
     
     if request.method == 'POST':
         move = request.form.get('move')
         print(move)
+        #
         
         gs = GameState()
-        move = Move(, move["row"] move["col"], gs.board)
+        #move = Move(, move["row"] move["col"], gs.board)
     
    
     wR1 = "a1"

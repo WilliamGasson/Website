@@ -43,9 +43,11 @@ This repository is for my personal website, it contains a number of smaller proj
 
 
 ## TODO
-1. Modify the directory to allow you to select a file to run through C.V.
-2. Create a new CV page to output the result
-3. Add an upload file to the directory page
+1. Sudoku read through code and modify to let you type number 
+   How to Build Sudoku JavaScript Tutorial "https://www.youtube.com/watch?v=S4uRtTb8U-U&ab_channel=KennyYipCoding"
+2. Take look at click how numbers are inputed and see if that can be transfered to chess
+3. connect sudoku and chess backends to front ends
+4. 
 
 
 
