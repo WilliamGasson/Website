@@ -7,23 +7,9 @@ __date__ = "2023-03-09"
 __author__ = "WilliamGasson"
 __version__ = "0.1"
 
-
-# %% --------------------------------------------------------------------------
 # Imports
-# -----------------------------------------------------------------------------
-
-
-
-from flask import Flask, render_template, request, redirect, url_for, flash, send_file, abort, send_from_directory
+from flask import Flask, render_template, request, redirect, url_for, flash, send_file, abort, send_from_directory,jsonify
 import os
-from Chess import GameState
-from Chess import Move
-from Sudoku import GameState
-from Sudoku import main
-
-from Computer_Vision.src import predict, model_class, torch_helper
-
-
 from werkzeug.utils import secure_filename
 from pathlib import Path
 from PIL import Image
@@ -32,8 +18,35 @@ import io
 import datetime as dt
 import logging
 
+from Chess import GameState
+from Chess import Move
+from Sudoku import GameState
+from Sudoku import main
+from Computer_Vision.src import predict, model_class, torch_helper
+
+import time
 
 app = Flask(__name__)
+
+
+@app.route('/ajax')
+def index():
+    return render_template('ajax.html')
+
+@app.route('/create_file', methods=['POST'])
+def create_file():
+    if request.method == 'POST':
+        with open(f"{request.form.get('name')}.txt", "w") as f:
+            f.write('FILE CREATED AND SUCCESSFULL POST REQUEST!')
+        return ('', 204)
+
+
+
+
+
+
+
+
 
 
 @app.route("/hello_world")
@@ -54,18 +67,22 @@ def lensless():
 
 @app.route("/chess", methods=['GET', 'POST'])
 def chess():
+    # TODO 
+    
     if request.method == 'POST':
-        # Then get the data from the form
-        tag = request.form['tag']
-
-        print(tag)
+        move = request.form.get('move')
+        print(move)
+        
+        gs = GameState()
+        move = Move(, move["row"] move["col"], gs.board)
+    
+   
     wR1 = "a1"
     return render_template("chess.html", wR1=wR1)
 
 @app.route("/articles")
 def articles():
     return render_template("articles.html")
-
 
 @app.route("/template")
 def template():
@@ -85,11 +102,10 @@ def test():
 
 
 
-## image upload
 
+## image upload
 UPLOAD_FOLDER = "tmp"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
 
 
 def allowed_file(filename):
@@ -124,7 +140,6 @@ def getIconClassForFilename(fName):
     fileIconClass = f"bi bi-filetype-{fileExt}" if fileExt in FILE_TYPES else "bi bi-file-earmark"
     return fileIconClass
 
-# Show directory contents
 def fObjFromScan(x):
     fileStat = x.stat()
     # return file information for rendering
@@ -136,8 +151,6 @@ def fObjFromScan(x):
 
 
 
-
-# route handler
 @app.route('/directory/', defaults={'reqPath': ''}, methods=['GET', 'POST'])
 @app.route('/directory/<path:reqPath>')
 def getFiles(reqPath):
@@ -176,7 +189,6 @@ def getFiles(reqPath):
     parentFolderPath = os.path.relpath(
         Path(absPath).parents[0], UPLOAD_FOLDER).replace("\\", "/")
     return render_template('directory.html', data={'files': fileObjs, 'parentFolder': parentFolderPath})
-
 
 
 
@@ -222,7 +234,6 @@ def identifyImg(reqPath):
 
 
 
-
 @app.route('/sudoku', methods=['GET', 'POST'])
 def image_recognition():
     if request.method == 'POST':
@@ -246,8 +257,6 @@ def image_recognition():
             return redirect(url_for('getFiles', reqPath=filename))
     
     return render_template("sudoku.html")
-
-
 
 
 
