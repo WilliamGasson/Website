@@ -22,6 +22,7 @@ William
 
 Fix navigation in the directory - separate \directory from \directory\<filename>
 
+add github actions and tests
 
 
 
